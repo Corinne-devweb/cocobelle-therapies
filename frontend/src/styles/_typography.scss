@@ -1,0 +1,105 @@
+// src/styles/_typography.scss
+@import 'variables';
+@import 'mixins';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $font-size-base;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-primary, $font-fallback;
+  font-weight: $font-weight-light; // 300
+  font-size: $font-size-body-mobile;
+  line-height: $line-height-normal;
+  color: $text-primary;
+  background-color: $bg-light;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @include respond-to('tablet') {
+    font-size: $font-size-body-desktop;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-primary, $font-fallback;
+  font-weight: $font-weight-regular; // 400
+  line-height: $line-height-tight;
+  margin-bottom: 1rem;
+  color: $text-primary;
+}
+
+h1 {
+  font-size: $font-size-h1-mobile;
+  @include respond-to('tablet') {
+    font-size: $font-size-h1-desktop;
+  }
+}
+
+h2 {
+  font-size: $font-size-h2-mobile;
+  @include respond-to('tablet') {
+    font-size: $font-size-h2-desktop;
+  }
+}
+
+h3 {
+  font-size: $font-size-h3-mobile;
+  @include respond-to('tablet') {
+    font-size: $font-size-h3-desktop;
+  }
+}
+
+p {
+  margin-bottom: 1rem;
+  line-height: $line-height-relaxed;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $link-hover;
+  }
+
+  &:focus {
+    outline: 3px solid $focus-outline;
+    outline-offset: 2px;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: $primary-color;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+
+  &:focus {
+    top: 0;
+  }
+}

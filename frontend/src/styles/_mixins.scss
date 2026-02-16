@@ -1,0 +1,25 @@
+// src/styles/_mixins.scss
+@import 'variables';
+
+// Mixin responsive
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}
+
+// Mixin pour texte corps (Oswald 300)
+@mixin body-text {
+  font-family: $font-primary, $font-fallback;
+  font-weight: $font-weight-light;
+  line-height: $line-height-relaxed;
+}
+
+// Mixin pour navbar (Oswald 400)
+@mixin navbar-text {
+  font-family: $font-primary, $font-fallback;
+  font-weight: $font-weight-regular;
+  letter-spacing: 0.02em;
+}

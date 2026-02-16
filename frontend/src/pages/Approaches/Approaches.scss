@@ -1,0 +1,461 @@
+// src/pages/Approaches/Approaches.scss
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.approaches {
+  --section-padding: 4rem 1rem;
+  --section-padding-large: 6rem 1rem;
+}
+
+// HERO SECTION
+
+.approaches-hero {
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/feuilles.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @include respond-to('tablet') {
+    min-height: 60vh;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba($primary-color, 0.88) 0%,
+      rgba($primary-color, 0.82) 100%
+    );
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    padding: 2rem 1rem;
+  }
+
+  &__title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: $font-weight-regular;
+
+    @include respond-to('tablet') {
+      font-size: 4.5rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.5rem;
+    opacity: 0.95;
+    font-weight: $font-weight-light;
+
+    @include respond-to('tablet') {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+// HOW IT WORKS DETAIL
+
+.how-it-works-detail {
+  padding: var(--section-padding-large);
+  background-color: white;
+}
+
+.work-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+
+  @include respond-to('tablet') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.work-card {
+  background-color: $bg-grey;
+  padding: 2.5rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  &__icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    color: $primary-color;
+    margin-bottom: 1rem;
+    font-weight: $font-weight-regular;
+  }
+
+  &__description {
+    color: $text-primary;
+    line-height: $line-height-relaxed;
+
+    strong {
+      color: $primary-color;
+    }
+  }
+}
+
+// SESSION CONTENT
+
+.session-content {
+  padding: var(--section-padding-large);
+  background-color: $primary-color-light;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+
+  @include respond-to('mobile') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to('tablet-landscape') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to('desktop') {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.benefit-card {
+  background-color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  &__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    color: $primary-color;
+    margin-bottom: 0.75rem;
+    font-weight: $font-weight-semibold;
+    line-height: 1.3;
+  }
+
+  &__description {
+    color: $text-secondary;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}
+
+// SESSION OUTCOMES
+
+.session-outcomes {
+  padding: var(--section-padding-large);
+  background-color: white;
+}
+
+.outcomes-box {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem;
+  background: linear-gradient(135deg, $primary-color 0%, $primary-color-dark 100%);
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: $font-weight-regular;
+    text-align: center;
+
+    @include respond-to('tablet') {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+.outcomes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: rgba(white, 0.1);
+    border-radius: 6px;
+    font-size: 1.125rem;
+    line-height: $line-height-relaxed;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+    color: $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: bold;
+  }
+}
+
+// PRICING
+
+.pricing {
+  padding: var(--section-padding-large);
+  background-color: $bg-grey;
+}
+
+.pricing-card {
+  max-width: 700px;
+  margin: 3rem auto 0;
+  padding: 3rem 2rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+    font-weight: $font-weight-regular;
+  }
+
+  &__duration {
+    color: $text-secondary;
+    font-size: 1.125rem;
+  }
+
+  &__prices {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+
+    @include respond-to('tablet') {
+      gap: 2rem;
+    }
+  }
+
+  &__note {
+    margin-top: 2rem;
+    color: $text-secondary;
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+}
+
+.price-option {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+
+  &__currency {
+    font-size: 1.5rem;
+    color: $primary-color;
+  }
+
+  &__amount {
+    font-size: 3rem;
+    color: $primary-color;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__label {
+    font-size: 1rem;
+    color: $text-secondary;
+  }
+}
+
+.price-divider {
+  font-size: 2rem;
+  color: $primary-color-light;
+}
+
+.pricing-info {
+  max-width: 800px;
+  margin: 3rem auto 0;
+}
+
+.info-box {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  border-left: 4px solid $primary-color;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  h4 {
+    font-size: 1.25rem;
+    color: $primary-color;
+    margin-bottom: 1rem;
+    font-weight: $font-weight-regular;
+  }
+
+  p {
+    color: $text-primary;
+    line-height: $line-height-relaxed;
+    margin: 0;
+
+    strong {
+      color: $primary-color;
+    }
+  }
+}
+
+// CTA
+
+.approaches-cta {
+  padding: var(--section-padding-large);
+  background-color: $primary-color;
+  color: white;
+
+  &__content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: $font-weight-regular;
+
+    @include respond-to('tablet') {
+      font-size: 3rem;
+    }
+  }
+
+  &__text {
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+    opacity: 0.95;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+
+    @include respond-to('mobile') {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.contact-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+
+  @include respond-to('tablet') {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
+
+.contact-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: rgba(white, 0.1);
+  border-radius: 8px;
+
+  &__icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+
+    strong {
+      font-size: 1.1rem;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      opacity: 0.9;
+      white-space: nowrap;
+
+      &:hover {
+        opacity: 1;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// BUTTON OUTLINE WHITE
+
+.btn--outline-white {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+
+  &:hover {
+    background-color: white;
+    color: $primary-color;
+  }
+}

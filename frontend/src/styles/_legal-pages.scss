@@ -1,0 +1,188 @@
+// src/styles/_legal-pages.scss
+@import 'variables';
+@import 'mixins';
+
+// Styles communs pour toutes les pages légales
+.legal-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  
+  @include respond-to('tablet') {
+    padding: 4rem 2rem;
+  }
+
+  // En-tête de page
+  &__header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid $primary-color;
+  }
+
+  &__title {
+    font-size: 2rem;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+    font-weight: $font-weight-regular;
+
+    @include respond-to('tablet') {
+      font-size: 2.5rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 0.95rem;
+    color: $text-secondary;
+    font-weight: $font-weight-light;
+  }
+
+  // Sections
+  &__section {
+    margin-bottom: 2.5rem;
+  }
+
+  &__section-title {
+    font-size: 1.5rem;
+    color: $primary-color;
+    margin-bottom: 1rem;
+    font-weight: $font-weight-regular;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 1.5rem;
+      background-color: $primary-color;
+      border-radius: 2px;
+    }
+  }
+
+  &__section-content {
+    color: $text-primary;
+    line-height: $line-height-relaxed;
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+
+      li {
+        margin-bottom: 0.5rem;
+        line-height: $line-height-relaxed;
+      }
+    }
+
+    strong {
+      color: $primary-color;
+      font-weight: $font-weight-semibold;
+    }
+
+    a {
+      color: $primary-color;
+      text-decoration: underline;
+      
+      &:hover {
+        color: $primary-color-dark;
+      }
+    }
+  }
+
+  // Tableaux
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    display: block;
+
+    @include respond-to('tablet') {
+      display: table;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: $primary-color;
+      color: white;
+      font-weight: $font-weight-regular;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  }
+
+  // Boîtes d'information
+  &__info-box {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    border-left: 4px solid $primary-color;
+    background-color: $primary-color-light;
+
+    &--warning {
+      border-left-color: #f39c12;
+      background-color: #fef5e7;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Contact
+  &__contact {
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: $bg-grey;
+    border-radius: 8px;
+    text-align: center;
+
+    h3 {
+      color: $primary-color;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: $primary-color;
+      font-weight: $font-weight-semibold;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // Liste avec checkmarks
+  &__checklist {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 0.75rem;
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: $primary-color;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

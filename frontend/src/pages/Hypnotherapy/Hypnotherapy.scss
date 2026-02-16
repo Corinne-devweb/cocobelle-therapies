@@ -1,0 +1,631 @@
+// src/pages/Hypnotherapy/Hypnotherapy.scss
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.hypnotherapy {
+  --section-padding: 4rem 1rem;
+  --section-padding-large: 6rem 1rem;
+}
+
+// HERO SECTION
+
+.hypnotherapy-hero {
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/feuilles.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @include respond-to('tablet') {
+    min-height: 60vh;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba($primary-color, 0.88) 0%,
+      rgba($primary-color, 0.82) 100%
+    );
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    padding: 2rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: $font-weight-regular;
+    line-height: 1.2;
+
+    @include respond-to('tablet') {
+      font-size: 4rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.25rem;
+    opacity: 0.95;
+    font-weight: $font-weight-light;
+
+    @include respond-to('tablet') {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// INTRO
+
+.hypnotherapy-intro {
+  padding: var(--section-padding-large);
+  background-color: white;
+}
+
+.intro-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.intro-box {
+  background-color: $bg-grey;
+  padding: 2.5rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+
+  @include respond-to('tablet') {
+    padding: 3rem;
+  }
+}
+
+.intro-text {
+  font-size: 1.0625rem;
+  line-height: $line-height-relaxed;
+  color: $text-primary;
+  margin-bottom: 1.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  strong {
+    color: $primary-color;
+  }
+}
+
+.intro-highlight {
+  font-size: 1.125rem;
+  padding: 1.5rem;
+  background-color: $primary-color-light;
+  border-left: 4px solid $primary-color;
+  border-radius: 6px;
+  font-weight: $font-weight-semibold;
+  color: $primary-color;
+  margin: 1.5rem 0;
+}
+
+// COMPONENTS
+
+.hypnotherapy-components {
+  padding: var(--section-padding-large);
+  background-color: $primary-color-light;
+}
+
+.components-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+
+  @include respond-to('tablet-landscape') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.component-card {
+  background-color: white;
+  padding: 2.5rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+   &__logo {
+    width: 100%;
+    max-width: 180px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    color: $primary-color;
+    margin-bottom: 1rem;
+    font-weight: $font-weight-regular;
+    line-height: 1.3;
+  }
+
+  &__description {
+    color: $text-primary;
+    line-height: $line-height-relaxed;
+    font-size: 0.975rem;
+  }
+}
+
+// WHAT IS HYPNOSIS
+
+.what-is-hypnosis {
+  padding: var(--section-padding-large);
+  background-color: white;
+}
+
+.hypnosis-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+
+  @include respond-to('tablet-landscape') {
+    flex-direction: row;
+    gap: 4rem;
+  }
+
+  &__text {
+    flex: 1;
+
+    p {
+      margin-bottom: 1.5rem;
+      line-height: $line-height-relaxed;
+      color: $text-primary;
+
+      strong {
+        color: $primary-color;
+      }
+    }
+  }
+
+  &__image {
+    flex-shrink: 0;
+  }
+}
+
+.myth-box {
+  background-color: $primary-color-light;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+
+  h3 {
+    color: $primary-color;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background-color: white;
+      border-radius: 6px;
+      line-height: 1.6;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.relaxation-visual {
+  width: 280px;
+  height: 280px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba($primary-color, 0.1) 0%, rgba($primary-color, 0.2) 100%);
+  border-radius: 50%;
+
+  @include respond-to('tablet') {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+.wave {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid $primary-color;
+  opacity: 0.3;
+  animation: pulse 3s ease-in-out infinite;
+
+  &.wave-1 {
+    animation-delay: 0s;
+  }
+
+  &.wave-2 {
+    animation-delay: 1s;
+  }
+
+  &.wave-3 {
+    animation-delay: 2s;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+}
+
+.relaxation-text {
+  position: relative;
+  z-index: 1;
+  color: $primary-color;
+  font-weight: $font-weight-semibold;
+  font-size: 1.125rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+// BENEFITS
+
+.hypnotherapy-benefits {
+  padding: var(--section-padding-large);
+  background-color: $bg-grey;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 3rem;
+
+  @include respond-to('mobile') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to('tablet-landscape') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.benefit-card {
+  background-color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  &__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: 1.0625rem;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+    font-weight: $font-weight-semibold;
+    line-height: 1.3;
+  }
+
+  &__description {
+    color: $text-secondary;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+// PROCESS
+
+.session-process {
+  padding: var(--section-padding-large);
+  background-color: white;
+}
+
+.process-timeline {
+  max-width: 900px;
+  margin: 3rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.process-step {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+
+  &__number {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    flex: 1;
+    padding: 1.5rem;
+    background-color: $bg-grey;
+    border-radius: 8px;
+
+    h3 {
+      font-size: 1.25rem;
+      color: $primary-color;
+      margin-bottom: 0.75rem;
+      font-weight: $font-weight-regular;
+    }
+
+    p {
+      color: $text-primary;
+      line-height: $line-height-relaxed;
+      margin: 0;
+    }
+  }
+}
+
+// PRICING
+
+.hypnotherapy-pricing {
+  padding: var(--section-padding-large);
+  background-color: $primary-color-light;
+}
+
+.pricing-box {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  &__title {
+    font-size: 2rem;
+    color: $primary-color;
+    margin-bottom: 2rem;
+    font-weight: $font-weight-regular;
+  }
+
+  &__prices {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+
+    @include respond-to('tablet') {
+      gap: 2rem;
+    }
+  }
+
+  &__duration {
+    font-size: 1.125rem;
+    color: $text-secondary;
+    margin: 1.5rem 0;
+  }
+
+  &__note {
+    color: $text-secondary;
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+}
+
+.price-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+
+  &__currency {
+    font-size: 1.5rem;
+    color: $primary-color;
+  }
+
+  &__amount {
+    font-size: 3rem;
+    color: $primary-color;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+.price-divider {
+  font-size: 2rem;
+  color: $primary-color-light;
+}
+
+// FAQ
+
+.hypnotherapy-faq {
+  padding: var(--section-padding-large);
+  background-color: white;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+
+  @include respond-to('tablet') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.faq-item {
+  padding: 2rem;
+  background-color: $bg-grey;
+  border-radius: 8px;
+  border-left: 4px solid $primary-color;
+
+  &__question {
+    font-size: 1.125rem;
+    color: $primary-color;
+    margin-bottom: 1rem;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__answer {
+    color: $text-primary;
+    line-height: $line-height-relaxed;
+    margin: 0;
+  }
+}
+
+// CTA
+
+.hypnotherapy-cta {
+  padding: var(--section-padding-large);
+  background-color: $primary-color;
+  color: white;
+
+  &__content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: $font-weight-regular;
+
+    @include respond-to('tablet') {
+      font-size: 3rem;
+    }
+  }
+
+  &__text {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+
+    @include respond-to('mobile') {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.contact-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 2rem auto;
+
+  @include respond-to('tablet') {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
+
+.contact-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: rgba(white, 0.1);
+  border-radius: 8px;
+  text-align: left;
+
+  &__icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    strong {
+      font-size: 1.1rem;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      opacity: 0.9;
+
+      &:hover {
+        opacity: 1;
+        text-decoration: underline;
+      }
+    }
+  }
+}
