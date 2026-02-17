@@ -4,9 +4,10 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 const authMiddleware = require("../middleware/auth");
+const { validateRegister, validateLogin } = require("../middleware/validation");
 
 // ===== INSCRIPTION =====
-router.post("/register", async (req, res) => {
+router.post("/register", validateRegister, async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
 
@@ -46,7 +47,7 @@ router.post("/register", async (req, res) => {
 });
 
 // ===== CONNEXION =====
-router.post("/login", async (req, res) => {
+router.post("/login", validateLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
 

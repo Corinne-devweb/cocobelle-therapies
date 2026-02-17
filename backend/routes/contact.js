@@ -5,19 +5,12 @@ const {
   sendContactNotification,
   sendConfirmationEmail,
 } = require("../config/email");
+const { validateContact } = require("../middleware/validation");
 
 // ===== ENVOYER UN MESSAGE DE CONTACT =====
-router.post("/", async (req, res) => {
+router.post("/", validateContact, async (req, res) => {
   try {
     const { name, email, phone, subject, message } = req.body;
-
-    // Validation
-    if (!name || !email || !message) {
-      return res.status(400).json({
-        success: false,
-        message: "Nom, email et message sont obligatoires",
-      });
-    }
 
     // Envoyer email de notification à votre cliente
     await sendContactNotification({ name, email, phone, subject, message });
