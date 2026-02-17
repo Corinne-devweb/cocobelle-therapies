@@ -25,7 +25,6 @@ const Register = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -37,13 +36,9 @@ const Register = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.firstName.trim()) {
+    if (!formData.firstName.trim())
       newErrors.firstName = "Le prénom est requis";
-    }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Le nom est requis";
-    }
+    if (!formData.lastName.trim()) newErrors.lastName = "Le nom est requis";
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
@@ -52,9 +47,7 @@ const Register = () => {
       newErrors.email = "Email invalide";
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Le téléphone est requis";
-    }
+    if (!formData.phone.trim()) newErrors.phone = "Le téléphone est requis";
 
     if (!formData.password) {
       newErrors.password = "Le mot de passe est requis";
@@ -80,51 +73,41 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
     setRegisterError("");
 
     try {
-      // Appel à l'API backend
       const response = await authAPI.register({
         name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
         password: formData.password,
+        phone: formData.phone,
       });
 
-      // Récupérer le token et les données utilisateur
       const { token, user } = response.data;
 
-      // Sauvegarder dans localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("isLoggedIn", "true");
 
-      // Message de succès (optionnel)
       console.log("✅ Inscription réussie:", user);
 
-      // Redirection vers Mon Compte
       navigate("/mon-compte");
     } catch (error) {
       console.error("❌ Erreur d'inscription:", error);
 
-      // Gérer les différents types d'erreurs
       if (error.response) {
-        // Erreur venant du serveur
         setRegisterError(
           error.response.data.message ||
             "Une erreur est survenue lors de l'inscription",
         );
       } else if (error.request) {
-        // Pas de réponse du serveur
         setRegisterError(
           "Impossible de contacter le serveur. Vérifiez votre connexion.",
         );
       } else {
-        // Autre erreur
         setRegisterError("Une erreur est survenue. Veuillez réessayer.");
       }
     } finally {
@@ -134,7 +117,6 @@ const Register = () => {
 
   return (
     <div className="register">
-      {/* Hero Section */}
       <section className="register-hero">
         <div className="register-hero__overlay"></div>
         <div className="container">
@@ -147,7 +129,6 @@ const Register = () => {
         </div>
       </section>
 
-      {/* Register Form */}
       <section className="register-form-section">
         <div className="container">
           <div className="register-container">
@@ -176,9 +157,7 @@ const Register = () => {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
-                      className={`form-input ${
-                        errors.firstName ? "form-input--error" : ""
-                      }`}
+                      className={`form-input ${errors.firstName ? "form-input--error" : ""}`}
                       placeholder="Votre prénom"
                     />
                     {errors.firstName && (
@@ -196,9 +175,7 @@ const Register = () => {
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleChange}
-                      className={`form-input ${
-                        errors.lastName ? "form-input--error" : ""
-                      }`}
+                      className={`form-input ${errors.lastName ? "form-input--error" : ""}`}
                       placeholder="Votre nom"
                     />
                     {errors.lastName && (
@@ -217,9 +194,7 @@ const Register = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`form-input ${
-                      errors.email ? "form-input--error" : ""
-                    }`}
+                    className={`form-input ${errors.email ? "form-input--error" : ""}`}
                     placeholder="votre.email@exemple.com"
                     autoComplete="email"
                   />
@@ -238,9 +213,7 @@ const Register = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className={`form-input ${
-                      errors.phone ? "form-input--error" : ""
-                    }`}
+                    className={`form-input ${errors.phone ? "form-input--error" : ""}`}
                     placeholder="+33 6 12 34 56 78"
                   />
                   {errors.phone && (
@@ -258,9 +231,7 @@ const Register = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className={`form-input ${
-                      errors.password ? "form-input--error" : ""
-                    }`}
+                    className={`form-input ${errors.password ? "form-input--error" : ""}`}
                     placeholder="••••••••"
                     autoComplete="new-password"
                   />
@@ -281,9 +252,7 @@ const Register = () => {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className={`form-input ${
-                      errors.confirmPassword ? "form-input--error" : ""
-                    }`}
+                    className={`form-input ${errors.confirmPassword ? "form-input--error" : ""}`}
                     placeholder="••••••••"
                     autoComplete="new-password"
                   />

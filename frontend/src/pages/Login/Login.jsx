@@ -21,7 +21,6 @@ const Login = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -32,8 +31,8 @@ const Login = () => {
 
   const validateForm = () => {
     const newErrors = {};
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!formData.email.trim()) {
       newErrors.email = "L'email est requis";
     } else if (!emailRegex.test(formData.email)) {
@@ -54,21 +53,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
     setLoginError("");
 
     try {
-      // Appel à l'API backend
       const response = await authAPI.login({
         email: formData.email,
         password: formData.password,
       });
 
-      // Récupérer le token et les données utilisateur
       const { token, user } = response.data;
 
       // Sauvegarder dans localStorage
@@ -76,7 +71,6 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("isLoggedIn", "true");
 
-      // Message de succès (optionnel)
       console.log("✅ Connexion réussie:", user);
 
       // Redirection vers Mon Compte
@@ -84,19 +78,15 @@ const Login = () => {
     } catch (error) {
       console.error("❌ Erreur de connexion:", error);
 
-      // Gérer les différents types d'erreurs
       if (error.response) {
-        // Erreur venant du serveur
         setLoginError(
           error.response.data.message || "Email ou mot de passe incorrect",
         );
       } else if (error.request) {
-        // Pas de réponse du serveur
         setLoginError(
           "Impossible de contacter le serveur. Vérifiez votre connexion.",
         );
       } else {
-        // Autre erreur
         setLoginError("Une erreur est survenue. Veuillez réessayer.");
       }
     } finally {
@@ -106,7 +96,6 @@ const Login = () => {
 
   return (
     <div className="login">
-      {/* Hero Section */}
       <section className="login-hero">
         <div className="login-hero__overlay"></div>
         <div className="container">
@@ -119,7 +108,6 @@ const Login = () => {
         </div>
       </section>
 
-      {/* Login Form */}
       <section className="login-form-section">
         <div className="container">
           <div className="login-container">
@@ -147,9 +135,7 @@ const Login = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`form-input ${
-                      errors.email ? "form-input--error" : ""
-                    }`}
+                    className={`form-input ${errors.email ? "form-input--error" : ""}`}
                     placeholder="votre.email@exemple.com"
                     autoComplete="email"
                   />
@@ -168,9 +154,7 @@ const Login = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className={`form-input ${
-                      errors.password ? "form-input--error" : ""
-                    }`}
+                    className={`form-input ${errors.password ? "form-input--error" : ""}`}
                     placeholder="••••••••"
                     autoComplete="current-password"
                   />
