@@ -1,6 +1,7 @@
 // src/pages/Account/Account.jsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { appointmentsAPI } from "../../services/api";
 import "./Account.scss";
 
 const Account = () => {
@@ -11,14 +12,16 @@ const Account = () => {
   });
   const [messageSent, setMessageSent] = useState(false);
   const [user, setUser] = useState(null);
+  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+  const [pastAppointments, setPastAppointments] = useState([]);
+  const [loadingAppointments, setLoadingAppointments] = useState(true);
 
-  // Récupérer les vraies infos utilisateur depuis localStorage
+  // Récupérer les infos utilisateur depuis localStorage
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user") || "{}");
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
     if (isLoggedIn && userData) {
-      // Extraire prénom et nom si le nom complet est disponible
       const nameParts = userData.name
         ? userData.name.split(" ")
         : ["Utilisateur"];
@@ -42,9 +45,68 @@ const Account = () => {
     }
   }, []);
 
-  // Pas de rendez-vous pour l'instant
-  const upcomingAppointments = [];
-  const pastAppointments = [];
+  // Récupérer les rendez-vous depuis le backend
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await appointmentsAPI.getUserAppointments();
+        setUpcomingAppointments(response.data.upcoming || []);
+        setPastAppointments(response.data.past || []);
+      } catch (error) {
+        console.error("❌ Erreur récupération RDV:", error);
+      } finally {
+        setLoadingAppointments(false);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
+
+  // Annuler un rendez-vous
+  const handleCancelAppointment = async (id) => {
+    if (
+      !window.confirm("Êtes-vous sûr(e) de vouloir annuler ce rendez-vous ?")
+    ) {
+      return;
+    }
+
+    try {
+      await appointmentsAPI.cancel(id);
+      // Recharger les rendez-vous
+      const response = await appointmentsAPI.getUserAppointments();
+      setUpcomingAppointments(response.data.upcoming || []);
+      setPastAppointments(response.data.past || []);
+      alert("Rendez-vous annulé avec succès !");
+    } catch (error) {
+      console.error("❌ Erreur annulation RDV:", error);
+      alert("Erreur lors de l'annulation du rendez-vous");
+    }
+  };
+
+  // Formater la date
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("fr-FR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
+  // Formater l'heure
+  const formatTime = (time) => {
+    return time ? time.slice(0, 5) : ""; // "14:30:00" -> "14:30"
+  };
+
+  // Badge de statut
+  const getStatusBadge = (status) => {
+    const badges = {
+      pending: { text: "En attente", class: "badge--pending" },
+      confirmed: { text: "Confirmé", class: "badge--confirmed" },
+      completed: { text: "Terminé", class: "badge--completed" },
+      cancelled: { text: "Annulé", class: "badge--cancelled" },
+    };
+    return badges[status] || badges.pending;
+  };
 
   const handleMessageChange = (e) => {
     const { name, value } = e.target;
@@ -56,13 +118,9 @@ const Account = () => {
 
   const handleMessageSubmit = async (e) => {
     e.preventDefault();
-
-    // TODO: Remplacer par API d'envoi d'email
     await new Promise((resolve) => setTimeout(resolve, 1000));
-
     setMessageSent(true);
     setMessageForm({ subject: "", message: "" });
-
     setTimeout(() => {
       setMessageSent(false);
     }, 5000);
@@ -75,7 +133,6 @@ const Account = () => {
     window.location.href = "/";
   };
 
-  // Afficher un loader si les données ne sont pas encore chargées
   if (!user) {
     return (
       <div className="account">
@@ -174,32 +231,109 @@ const Account = () => {
                 <div className="appointments-section">
                   <h2 className="section-title">Mes rendez-vous</h2>
 
-                  {/* Upcoming Appointments */}
-                  <div className="appointments-group">
-                    <h3 className="appointments-group__title">
-                      <span className="appointments-group__icon">📅</span>
-                      Rendez-vous à venir ({upcomingAppointments.length})
-                    </h3>
+                  {loadingAppointments ? (
+                    <p style={{ textAlign: "center", padding: "2rem" }}>
+                      Chargement des rendez-vous...
+                    </p>
+                  ) : (
+                    <>
+                      {/* Rendez-vous à venir */}
+                      <div className="appointments-group">
+                        <h3 className="appointments-group__title">
+                          <span className="appointments-group__icon">📅</span>
+                          Rendez-vous à venir ({upcomingAppointments.length})
+                        </h3>
 
-                    <div className="empty-state">
-                      <p>Vous n&apos;avez aucun rendez-vous à venir.</p>
-                      <Link to="/rendez-vous" className="btn btn--primary">
-                        Prendre rendez-vous
-                      </Link>
-                    </div>
-                  </div>
+                        {upcomingAppointments.length === 0 ? (
+                          <div className="empty-state">
+                            <p>Vous n&apos;avez aucun rendez-vous à venir.</p>
+                            <Link
+                              to="/rendez-vous"
+                              className="btn btn--primary"
+                            >
+                              Prendre rendez-vous
+                            </Link>
+                          </div>
+                        ) : (
+                          <div className="appointments-list">
+                            {upcomingAppointments.map((apt) => (
+                              <div key={apt.id} className="appointment-card">
+                                <div className="appointment-card__header">
+                                  <span className="appointment-card__service">
+                                    {apt.serviceType}
+                                  </span>
+                                  <span
+                                    className={`appointment-card__badge ${getStatusBadge(apt.status).class}`}
+                                  >
+                                    {getStatusBadge(apt.status).text}
+                                  </span>
+                                </div>
+                                <div className="appointment-card__details">
+                                  <p>📆 {formatDate(apt.appointmentDate)}</p>
+                                  <p>⏰ {formatTime(apt.appointmentTime)}</p>
+                                  <p>⏱️ Durée : {apt.duration} minutes</p>
+                                  {apt.notes && (
+                                    <p className="appointment-card__notes">
+                                      📝 {apt.notes}
+                                    </p>
+                                  )}
+                                </div>
+                                {apt.status !== "cancelled" && (
+                                  <button
+                                    onClick={() =>
+                                      handleCancelAppointment(apt.id)
+                                    }
+                                    className="btn btn--danger btn--small"
+                                  >
+                                    Annuler
+                                  </button>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
 
-                  {/* Past Appointments */}
-                  <div className="appointments-group">
-                    <h3 className="appointments-group__title">
-                      <span className="appointments-group__icon">✓</span>
-                      Rendez-vous passés ({pastAppointments.length})
-                    </h3>
+                      {/* Rendez-vous passés */}
+                      <div className="appointments-group">
+                        <h3 className="appointments-group__title">
+                          <span className="appointments-group__icon">✓</span>
+                          Rendez-vous passés ({pastAppointments.length})
+                        </h3>
 
-                    <div className="empty-state">
-                      <p>Aucun rendez-vous passé.</p>
-                    </div>
-                  </div>
+                        {pastAppointments.length === 0 ? (
+                          <div className="empty-state">
+                            <p>Aucun rendez-vous passé.</p>
+                          </div>
+                        ) : (
+                          <div className="appointments-list">
+                            {pastAppointments.map((apt) => (
+                              <div
+                                key={apt.id}
+                                className="appointment-card appointment-card--past"
+                              >
+                                <div className="appointment-card__header">
+                                  <span className="appointment-card__service">
+                                    {apt.serviceType}
+                                  </span>
+                                  <span
+                                    className={`appointment-card__badge ${getStatusBadge(apt.status).class}`}
+                                  >
+                                    {getStatusBadge(apt.status).text}
+                                  </span>
+                                </div>
+                                <div className="appointment-card__details">
+                                  <p>📆 {formatDate(apt.appointmentDate)}</p>
+                                  <p>⏰ {formatTime(apt.appointmentTime)}</p>
+                                  <p>⏱️ Durée : {apt.duration} minutes</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
 
@@ -223,7 +357,6 @@ const Account = () => {
                       <div className="contact-info-card__icon">📱</div>
                       <h3>WhatsApp</h3>
                       <p>+44 7801 766737</p>
-
                       <a
                         href="https://wa.me/447801766737"
                         target="_blank"
