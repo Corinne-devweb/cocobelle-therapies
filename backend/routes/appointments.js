@@ -1,14 +1,15 @@
 // backend/routes/appointments.js
 const express = require("express");
 const router = express.Router();
-const { Appointment, User } = require("../models");
+const { Appointment } = require("../models");
 const authMiddleware = require("../middleware/auth");
+const { validateAppointment } = require("../middleware/validation");
 
 // Toutes les routes nécessitent une authentification
 router.use(authMiddleware);
 
 // ===== CRÉER UN RENDEZ-VOUS =====
-router.post("/", async (req, res) => {
+router.post("/", validateAppointment, async (req, res) => {
   try {
     const { serviceType, appointmentDate, appointmentTime, duration, notes } =
       req.body;
@@ -24,14 +25,16 @@ router.post("/", async (req, res) => {
     });
 
     res.status(201).json({
+      success: true,
       message: "Rendez-vous créé avec succès",
       appointment,
     });
   } catch (error) {
     console.error("Erreur création RDV:", error);
-    res
-      .status(500)
-      .json({ message: "Erreur lors de la création du rendez-vous" });
+    res.status(500).json({
+      success: false,
+      message: "Erreur lors de la création du rendez-vous",
+    });
   }
 });
 
@@ -52,15 +55,17 @@ router.get("/user", async (req, res) => {
     const past = appointments.filter((apt) => apt.appointmentDate < today);
 
     res.json({
+      success: true,
       upcoming,
       past,
       total: appointments.length,
     });
   } catch (error) {
     console.error("Erreur récupération RDV:", error);
-    res
-      .status(500)
-      .json({ message: "Erreur lors de la récupération des rendez-vous" });
+    res.status(500).json({
+      success: false,
+      message: "Erreur lors de la récupération des rendez-vous",
+    });
   }
 });
 
@@ -75,18 +80,27 @@ router.get("/:id", async (req, res) => {
     });
 
     if (!appointment) {
-      return res.status(404).json({ message: "Rendez-vous non trouvé" });
+      return res.status(404).json({
+        success: false,
+        message: "Rendez-vous non trouvé",
+      });
     }
 
-    res.json({ appointment });
+    res.json({
+      success: true,
+      appointment,
+    });
   } catch (error) {
     console.error("Erreur récupération RDV:", error);
-    res.status(500).json({ message: "Erreur serveur" });
+    res.status(500).json({
+      success: false,
+      message: "Erreur serveur",
+    });
   }
 });
 
 // ===== MODIFIER UN RDV =====
-router.put("/:id", async (req, res) => {
+router.put("/:id", validateAppointment, async (req, res) => {
   try {
     const appointment = await Appointment.findOne({
       where: {
@@ -96,19 +110,25 @@ router.put("/:id", async (req, res) => {
     });
 
     if (!appointment) {
-      return res.status(404).json({ message: "Rendez-vous non trouvé" });
+      return res.status(404).json({
+        success: false,
+        message: "Rendez-vous non trouvé",
+      });
     }
 
-    // Mettre à jour
     await appointment.update(req.body);
 
     res.json({
+      success: true,
       message: "Rendez-vous modifié avec succès",
       appointment,
     });
   } catch (error) {
     console.error("Erreur modification RDV:", error);
-    res.status(500).json({ message: "Erreur lors de la modification" });
+    res.status(500).json({
+      success: false,
+      message: "Erreur lors de la modification",
+    });
   }
 });
 
@@ -123,19 +143,26 @@ router.delete("/:id", async (req, res) => {
     });
 
     if (!appointment) {
-      return res.status(404).json({ message: "Rendez-vous non trouvé" });
+      return res.status(404).json({
+        success: false,
+        message: "Rendez-vous non trouvé",
+      });
     }
 
     // Marquer comme annulé au lieu de supprimer
     await appointment.update({ status: "cancelled" });
 
     res.json({
+      success: true,
       message: "Rendez-vous annulé avec succès",
       appointment,
     });
   } catch (error) {
     console.error("Erreur annulation RDV:", error);
-    res.status(500).json({ message: "Erreur lors de l'annulation" });
+    res.status(500).json({
+      success: false,
+      message: "Erreur lors de l'annulation",
+    });
   }
 });
 
