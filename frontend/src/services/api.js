@@ -1,3 +1,4 @@
+// src/services/api.js
 import axios from "axios";
 
 // URL de base du backend
@@ -25,6 +26,21 @@ api.interceptors.request.use(
   },
 );
 
+// Intercepteur pour gérer les erreurs globalement
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Si token expiré ou invalide
+    if (error.response?.status === 401) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "/connexion";
+    }
+    return Promise.reject(error);
+  },
+);
+
 // ===== AUTHENTIFICATION =====
 export const authAPI = {
   register: (userData) => api.post("/auth/register", userData),
@@ -32,14 +48,13 @@ export const authAPI = {
   getMe: () => api.get("/auth/me"),
 };
 
-// ===== BLOG =====
-export const blogAPI = {
-  getArticles: (params) => api.get("/blog/articles", { params }),
-  getArticle: (id) => api.get(`/blog/articles/${id}`),
-  createArticle: (articleData) => api.post("/blog/articles", articleData),
-  updateArticle: (id, articleData) =>
-    api.put(`/blog/articles/${id}`, articleData),
-  deleteArticle: (id) => api.delete(`/blog/articles/${id}`),
+// ===== RENDEZ-VOUS =====
+export const appointmentsAPI = {
+  create: (appointmentData) => api.post("/appointments", appointmentData),
+  getUserAppointments: () => api.get("/appointments/user"),
+  getOne: (id) => api.get(`/appointments/${id}`),
+  update: (id, data) => api.put(`/appointments/${id}`, data),
+  cancel: (id) => api.delete(`/appointments/${id}`),
 };
 
 // ===== CONTACT =====
