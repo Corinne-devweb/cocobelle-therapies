@@ -463,7 +463,7 @@ const Contact = () => {
             <div className="faq-item">
               <h3 className="faq-item__question">💰 Quels sont vos tarifs ?</h3>
               <p className="faq-item__answer">
-                Une session de 50 minutes coûte £40 / €50 / $60. Des tarifs
+                Une session de 50 minutes coûte £50 / €57 / $67. Des tarifs
                 réduits sont disponibles pour les étudiants et personnes en
                 difficulté financière.
               </p>
