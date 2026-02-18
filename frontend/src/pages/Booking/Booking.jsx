@@ -12,12 +12,12 @@ const Booking = () => {
     {
       id: "adhd",
       name: "Accompagnement TDAH (ACT)",
-      price: "£50 | €57 | $67",
+      price: "£60 | €68 | $80",
       duration: "50 minutes",
       icon: "🧠",
       description:
         "Thérapie d'Acceptation et d'Engagement pour adultes avec TDAH",
-      calendlyUrl: "https://calendly.com/cocobelle/consultation",
+      calUrl: "https://cal.eu/cocobelletherapies/accompagnement-tdah",
     },
     {
       id: "hypnotherapy",
@@ -26,7 +26,7 @@ const Booking = () => {
       duration: "50 minutes",
       icon: "🌀",
       description: "Hypnothérapie basée sur la mindfulness",
-      calendlyUrl: "https://calendly.com/cocobelle/consultation",
+      calUrl: "https://cal.eu/cocobelletherapies/hypnotherapie-clinique",
     },
     {
       id: "consultation",
@@ -36,7 +36,7 @@ const Booking = () => {
       icon: "🎁",
       description:
         "Discussion gratuite pour faire connaissance et comprendre vos besoins",
-      calendlyUrl: "https://calendly.com/cocobelle/consultation",
+      calUrl: "https://cal.eu/cocobelletherapies/consultation-gratuite",
     },
   ];
 
@@ -46,30 +46,8 @@ const Booking = () => {
 
   useEffect(() => {
     if (step === 2) {
-      // Charger le script Calendly
-      const script = document.createElement("script");
-      script.src = "https://assets.calendly.com/assets/external/widget.js";
-      script.async = true;
-      document.body.appendChild(script);
-
-      // Écouter l'événement de réservation Calendly
-      const handleCalendlyEvent = (e) => {
-        if (e.data.event && e.data.event === "calendly.event_scheduled") {
-          // Réservation confirmée, passer à l'étape 3
-          setBookingComplete(true);
-          setStep(3);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-      };
-
-      window.addEventListener("message", handleCalendlyEvent);
-
-      return () => {
-        if (document.body.contains(script)) {
-          document.body.removeChild(script);
-        }
-        window.removeEventListener("message", handleCalendlyEvent);
-      };
+      // Cal.com utilise des iframes, pas besoin de script externe
+      // Le widget se charge automatiquement via l'iframe
     }
   }, [step]);
 
@@ -193,7 +171,7 @@ const Booking = () => {
         </section>
       )}
 
-      {/* Step 2: Calendly Widget */}
+      {/* Step 2: Cal.com Widget */}
       {step === 2 && selectedService && (
         <section className="booking-step">
           <div className="container">
@@ -212,12 +190,19 @@ const Booking = () => {
 
             <h2 className="step-title">Choisissez votre date et heure</h2>
 
-            <div className="calendly-widget-container">
-              <div
-                className="calendly-inline-widget"
-                data-url={`${selectedService.calendlyUrl}?hide_event_type_details=1&hide_gdpr_banner=1&background_color=2A7A73&text_color=ffffff&primary_color=2A7A73`}
-                style={{ minWidth: "320px", height: "700px" }}
-              ></div>
+            <div className="cal-widget-container">
+              <iframe
+                src={selectedService.calUrl}
+                width="100%"
+                height="700"
+                frameBorder="0"
+                style={{
+                  border: "none",
+                  borderRadius: "8px",
+                  overflow: "hidden",
+                }}
+                title="Calendrier de réservation"
+              ></iframe>
             </div>
 
             <div className="step-actions">

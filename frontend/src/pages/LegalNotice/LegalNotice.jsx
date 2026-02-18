@@ -61,28 +61,23 @@ const LegalNotice = () => {
           <p>Le site est hébergé par :</p>
           <ul>
             <li>
-              <strong>Hébergeur :</strong> [NOM DE L'HÉBERGEUR]
+              <strong>Hébergeur :</strong> Vercel Inc.
             </li>
             <li>
-              <strong>Adresse :</strong> [ADRESSE DE L'HÉBERGEUR]
+              <strong>Adresse :</strong> 340 S Lemon Ave #4133, Walnut, CA
+              91789, USA
             </li>
             <li>
               <strong>Site web :</strong>{" "}
-              <a href="[URL]" target="_blank" rel="noopener noreferrer">
-                [URL]
+              <a
+                href="https://vercel.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://vercel.com
               </a>
             </li>
           </ul>
-          <p
-            style={{
-              marginTop: "1rem",
-              fontStyle: "italic",
-              fontSize: "0.9rem",
-            }}
-          >
-            Exemples d'hébergeurs courants : OVH, Hostinger, O2Switch, Vercel,
-            Netlify, etc.
-          </p>
         </div>
       </section>
 
