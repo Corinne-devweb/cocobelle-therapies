@@ -1,5 +1,5 @@
 // backend/server.js
-require("dotenv").config(); // ← EN PREMIER !
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
