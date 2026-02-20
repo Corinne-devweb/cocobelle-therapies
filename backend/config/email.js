@@ -1,11 +1,12 @@
 // backend/config/email.js
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 // Configuration du transporteur email
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: false, // true pour le port 465, false pour les autres ports
+  port: parseInt(process.env.EMAIL_PORT),
+  secure: process.env.EMAIL_SECURE === "true", // true pour le port 465, false pour les autres ports
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
