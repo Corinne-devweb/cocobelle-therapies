@@ -80,7 +80,7 @@ app.get("/", (req, res) => {
   res.json({ message: "✅ API Coco Belle Therapies fonctionne !" });
 });
 
-// ===== DÉMARRAGE DU SERVEUR =====
+// ===== DÉMARRAGE SERVEUR =====
 const startServer = async () => {
   try {
     // Synchroniser la base de données

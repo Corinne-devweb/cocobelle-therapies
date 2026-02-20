@@ -11,7 +11,7 @@ const LegalNotice = () => {
         </p>
       </header>
 
-      {/* Section 1 : Éditeur du site */}
+      {/* Section 1 : Éditeur site */}
       <section className="legal-page__section">
         <h2 className="legal-page__section-title">1. Éditeur du site</h2>
         <div className="legal-page__section-content">
