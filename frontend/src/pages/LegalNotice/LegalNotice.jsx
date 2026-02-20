@@ -58,7 +58,17 @@ const LegalNotice = () => {
       <section className="legal-page__section">
         <h2 className="legal-page__section-title">2. Hébergement</h2>
         <div className="legal-page__section-content">
-          <p>Le site est hébergé par :</p>
+          <p>Le site utilise deux hébergeurs :</p>
+
+          <h3
+            style={{
+              marginTop: "1.5rem",
+              marginBottom: "0.5rem",
+              fontSize: "1.1rem",
+            }}
+          >
+            Frontend (interface utilisateur)
+          </h3>
           <ul>
             <li>
               <strong>Hébergeur :</strong> Vercel Inc.
@@ -75,6 +85,35 @@ const LegalNotice = () => {
                 rel="noopener noreferrer"
               >
                 https://vercel.com
+              </a>
+            </li>
+          </ul>
+
+          <h3
+            style={{
+              marginTop: "1.5rem",
+              marginBottom: "0.5rem",
+              fontSize: "1.1rem",
+            }}
+          >
+            Backend (base de données et API)
+          </h3>
+          <ul>
+            <li>
+              <strong>Hébergeur :</strong> Render Services, Inc.
+            </li>
+            <li>
+              <strong>Adresse :</strong> 525 Brannan Street, Suite 300, San
+              Francisco, CA 94107, USA
+            </li>
+            <li>
+              <strong>Site web :</strong>{" "}
+              <a
+                href="https://render.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://render.com
               </a>
             </li>
           </ul>

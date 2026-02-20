@@ -1,4 +1,5 @@
 // backend/server.js
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -11,6 +12,10 @@ const contactRoutes = require("./routes/contact");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// ===== CONFIGURATION PROXY =====
+// Nécessaire pour Render et autres proxys inverses
+app.set("trust proxy", 1);
 
 // ===== SÉCURITÉ : HELMET =====
 // Protège les headers HTTP
