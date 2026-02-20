@@ -1,6 +1,5 @@
 // backend/config/email.js
 const nodemailer = require("nodemailer");
-require("dotenv").config();
 
 // Configuration du transporteur email
 const transporter = nodemailer.createTransport({
