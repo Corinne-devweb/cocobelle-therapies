@@ -47,12 +47,21 @@ router.post("/cal", async (req, res) => {
         (new Date(endTime) - new Date(startTime)) / 60000,
       );
 
-      // Déterminer le type de service depuis le titre
-      let serviceType = "consultation";
-      if (title.toLowerCase().includes("hypno")) {
-        serviceType = "hypnotherapy";
-      } else if (title.toLowerCase().includes("tdah")) {
-        serviceType = "adhd";
+      // Déterminer le type de service depuis le titre ou le type Cal.com
+      let serviceType = "Consultation gratuite"; // Par défaut
+
+      const titleLower = (title || "").toLowerCase();
+      const typeLower = (payload.type || "").toLowerCase();
+
+      if (titleLower.includes("hypno") || typeLower.includes("hypno")) {
+        serviceType = "Hypnose";
+      } else if (titleLower.includes("tdah") || typeLower.includes("tdah")) {
+        serviceType = "TDAH";
+      } else if (
+        titleLower.includes("consultation") ||
+        typeLower.includes("consultation")
+      ) {
+        serviceType = "Consultation gratuite";
       }
 
       // Créer le RDV dans la base de données
