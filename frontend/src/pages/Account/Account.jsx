@@ -50,8 +50,15 @@ const Account = () => {
     const fetchAppointments = async () => {
       try {
         const response = await appointmentsAPI.getUserAppointments();
-        setUpcomingAppointments(response.data.upcoming || []);
-        setPastAppointments(response.data.past || []);
+        // Filtrer les RDV annulés
+        const upcoming = (response.data.upcoming || []).filter(
+          (apt) => apt.status !== "cancelled",
+        );
+        const past = (response.data.past || []).filter(
+          (apt) => apt.status !== "cancelled",
+        );
+        setUpcomingAppointments(upcoming);
+        setPastAppointments(past);
       } catch (error) {
         console.error("❌ Erreur récupération RDV:", error);
       } finally {
@@ -72,10 +79,16 @@ const Account = () => {
 
     try {
       await appointmentsAPI.cancel(id);
-      // Recharger les rendez-vous
+      // Recharger les rendez-vous et filtrer les annulés
       const response = await appointmentsAPI.getUserAppointments();
-      setUpcomingAppointments(response.data.upcoming || []);
-      setPastAppointments(response.data.past || []);
+      const upcoming = (response.data.upcoming || []).filter(
+        (apt) => apt.status !== "cancelled",
+      );
+      const past = (response.data.past || []).filter(
+        (apt) => apt.status !== "cancelled",
+      );
+      setUpcomingAppointments(upcoming);
+      setPastAppointments(past);
       alert("Rendez-vous annulé avec succès !");
     } catch (error) {
       console.error("❌ Erreur annulation RDV:", error);
