@@ -9,6 +9,7 @@ const { syncDatabase } = require("./models");
 const authRoutes = require("./routes/auth");
 const appointmentsRoutes = require("./routes/appointments");
 const contactRoutes = require("./routes/contact");
+const webhookRoutes = require("./routes/webhook");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -74,13 +75,14 @@ app.use("/api/auth/login", loginLimiter); // Rate limit strict sur la connexion
 app.use("/api/auth", authRoutes);
 app.use("/api/appointments", appointmentsRoutes);
 app.use("/api/contact", contactLimiter, contactRoutes); // Rate limit sur le contact
+app.use("/api/webhook", webhookRoutes); // Webhook Cal.com
 
 // Route de test
 app.get("/", (req, res) => {
   res.json({ message: "✅ API Coco Belle Therapies fonctionne !" });
 });
 
-// ===== DÉMARRAGE SERVEUR =====
+// ===== DÉMARRAGE DU SERVEUR =====
 const startServer = async () => {
   try {
     // Synchroniser la base de données
