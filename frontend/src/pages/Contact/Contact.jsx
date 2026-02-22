@@ -1,5 +1,6 @@
 // src/pages/Contact/Contact.jsx
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { contactAPI } from "../../services/api";
 import "./Contact.scss";
 
@@ -133,6 +134,27 @@ const Contact = () => {
 
   return (
     <div className="contact">
+      <Helmet>
+        <title>Contact | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Contactez Coco Belle Therapies par email, WhatsApp ou formulaire de contact. Réponse sous 24-48h. Consultation gratuite de 20 minutes disponible."
+        />
+        <meta
+          name="keywords"
+          content="contact, email, WhatsApp, formulaire contact, consultation gratuite"
+        />
+        <meta property="og:title" content="Contact | Coco Belle Therapies" />
+        <meta
+          property="og:description"
+          content="Contactez Coco Belle Therapies. Réponse sous 24-48h. Consultation gratuite disponible."
+        />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/contact"
+        />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="contact-hero">
         <div className="contact-hero__overlay"></div>

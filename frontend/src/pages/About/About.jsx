@@ -1,5 +1,6 @@
 // src/pages/About/About.jsx
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./About.scss";
 
 const About = () => {
@@ -77,6 +78,29 @@ const About = () => {
 
   return (
     <div className="about">
+      <Helmet>
+        <title>Qui suis-je | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Découvrez Annabel, hypnothérapeute clinique formée à l'ACT et spécialisée dans l'accompagnement TDAH. Consultation gratuite disponible."
+        />
+        <meta
+          name="keywords"
+          content="Annabel Coulthard, hypnothérapeute, ACT, TDAH, thérapie d'acceptation et d'engagement"
+        />
+        <meta
+          property="og:title"
+          content="Qui suis-je | Coco Belle Therapies"
+        />
+        <meta
+          property="og:description"
+          content="Découvrez Annabel, hypnothérapeute clinique formée à l'ACT et spécialisée dans l'accompagnement TDAH."
+        />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/qui-suis-je"
+        />
+      </Helmet>
       {/* Hero Section */}
       <section className="about-hero">
         <div className="about-hero__overlay"></div>

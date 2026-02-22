@@ -1,7 +1,9 @@
 // src/pages/Register/Register.jsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { authAPI } from "../../services/api";
+import { Helmet } from "react-helmet-async";
 import "./Register.scss";
 
 const Register = () => {
@@ -117,6 +119,18 @@ const Register = () => {
 
   return (
     <div className="register">
+      <Helmet>
+        <title>Inscription | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Créez votre compte Coco Belle Therapies pour réserver vos rendez-vous et gérer vos sessions en ligne facilement."
+        />
+        <meta name="robots" content="noindex, nofollow" />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/inscription"
+        />
+      </Helmet>
       <section className="register-hero">
         <div className="register-hero__overlay"></div>
         <div className="container">

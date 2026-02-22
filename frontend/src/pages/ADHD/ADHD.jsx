@@ -1,5 +1,6 @@
 // src/pages/ADHD/ADHD.jsx
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./ADHD.scss";
 
 const ADHD = () => {
@@ -40,6 +41,30 @@ const ADHD = () => {
 
   return (
     <div className="adhd">
+      <Helmet>
+        <title>Accompagnement TDAH | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Accompagnement personnalisé pour adultes avec TDAH. Approche basée sur l'ACT pour gérer l'impulsivité, concentration et organisation. £50/session."
+        />
+        <meta
+          name="keywords"
+          content="TDAH adulte, trouble déficit attention, hyperactivité, ACT, thérapie TDAH, accompagnement TDAH"
+        />
+        <meta
+          property="og:title"
+          content="Accompagnement TDAH | Coco Belle Therapies"
+        />
+        <meta
+          property="og:description"
+          content="Accompagnement personnalisé pour adultes avec TDAH. Approche basée sur l'ACT."
+        />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/tdah"
+        />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="adhd-hero">
         <div className="adhd-hero__overlay"></div>

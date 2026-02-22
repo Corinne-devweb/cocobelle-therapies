@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { appointmentsAPI } from "../../services/api";
+import { Helmet } from "react-helmet-async";
 import "./Account.scss";
 
 const Account = () => {
@@ -163,6 +164,18 @@ const Account = () => {
 
   return (
     <div className="account">
+      <Helmet>
+        <title>Mon Compte | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Gérez vos rendez-vous, consultez votre historique et contactez votre thérapeute depuis votre espace personnel."
+        />
+        <meta name="robots" content="noindex, nofollow" />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/mon-compte"
+        />
+      </Helmet>
       {/* Hero Section */}
       <section className="account-hero">
         <div className="account-hero__overlay"></div>

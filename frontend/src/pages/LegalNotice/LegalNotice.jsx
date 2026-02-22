@@ -1,9 +1,23 @@
 // src/pages/LegalNotice/LegalNotice.jsx
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const LegalNotice = () => {
   return (
     <div className="legal-page">
+      <Helmet>
+        <title>Mentions Légales | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Mentions légales de Coco Belle Therapies. Informations sur l'éditeur, l'hébergement et les conditions d'utilisation du site."
+        />
+        <meta name="robots" content="noindex, follow" />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/mentions-legales"
+        />
+      </Helmet>
+
       <header className="legal-page__header">
         <h1 className="legal-page__title">Mentions Légales</h1>
         <p className="legal-page__subtitle">

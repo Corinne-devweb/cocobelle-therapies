@@ -1,6 +1,7 @@
 // src/pages/CookiesPolicy/CookiesPolicy.jsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const CookiesPolicy = () => {
   const [analyticsEnabled, setAnalyticsEnabled] = useState(true);
@@ -25,6 +26,18 @@ const CookiesPolicy = () => {
 
   return (
     <div className="legal-page">
+      <Helmet>
+        <title>Gestion des Cookies | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Politique de gestion des cookies. Découvrez quels cookies sont utilisés sur le site et comment les gérer."
+        />
+        <meta name="robots" content="noindex, follow" />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/gestion-cookies"
+        />
+      </Helmet>
       <header className="legal-page__header">
         <h1 className="legal-page__title">Gestion des Cookies</h1>
         <p className="legal-page__subtitle">
