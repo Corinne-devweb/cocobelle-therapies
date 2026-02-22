@@ -1,5 +1,6 @@
 // src/pages/Home/Home.jsx
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./Home.scss";
 
 const Home = () => {
@@ -26,6 +27,34 @@ const Home = () => {
 
   return (
     <div className="home">
+      <Helmet>
+        <title>
+          Coco Belle Therapies - Hypnothérapie & Accompagnement TDAH
+        </title>
+        <meta
+          name="description"
+          content="Hypnothérapie clinique et accompagnement TDAH pour adultes anglophones. Consultation gratuite de 20 minutes. Basée à Gujan-Mestras."
+        />
+        <meta
+          name="keywords"
+          content="hypnothérapie, TDAH, hypnose thérapeutique, thérapie, accompagnement TDAH, Gujan-Mestras, adultes anglophones"
+        />
+        <meta
+          property="og:title"
+          content="Coco Belle Therapies - Hypnothérapie & Accompagnement TDAH"
+        />
+        <meta
+          property="og:description"
+          content="Hypnothérapie clinique et accompagnement TDAH pour adultes anglophones. Consultation gratuite de 20 minutes."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://cocobelle-therapies.vercel.app"
+        />
+        <link rel="canonical" href="https://cocobelle-therapies.vercel.app" />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="hero">
         <div className="hero__overlay"></div>
@@ -60,7 +89,7 @@ const Home = () => {
               <img src="/belle.png" alt="Belle - Thérapeute certifiée" />
             </div>
             <div className="about-intro__text">
-              <h2 className="section-title">Bonjour, je suis Belle 👋</h2>
+              <h2 className="section-title">Bonjour, je suis Belle ?</h2>
               <p>
                 Je propose un accompagnement thérapeutique{" "}
                 <strong>bienveillant et personnalisé</strong> pour les adultes
@@ -112,7 +141,7 @@ const Home = () => {
           <div className="services__grid">
             {/* Service TDAH */}
             <div className="service-card">
-              <div className="service-card__icon">🧠</div>
+              <div className="service-card__icon">?</div>
               <h3 className="service-card__title">Accompagnement TDAH</h3>
               <p className="service-card__description">
                 Stratégies pratiques pour gérer le stress, améliorer la
@@ -132,7 +161,7 @@ const Home = () => {
 
             {/* Service Hypnose */}
             <div className="service-card">
-              <div className="service-card__icon">🌀</div>
+              <div className="service-card__icon">?</div>
               <h3 className="service-card__title">Hypnose Thérapeutique</h3>
               <p className="service-card__description">
                 Séances d'hypnose clinique pour l'anxiété, les phobies, la
@@ -299,7 +328,7 @@ const Home = () => {
           <div className="contact-home__info">
             <div className="contact-info">
               <div className="contact-info__item">
-                <span className="contact-info__icon">📧</span>
+                <span className="contact-info__icon">?</span>
                 <div>
                   <strong>Email</strong>
                   <a href="mailto:info@cocobelletherapies.com">
@@ -308,7 +337,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="contact-info__item">
-                <span className="contact-info__icon">📱</span>
+                <span className="contact-info__icon">?</span>
                 <div>
                   <strong>WhatsApp</strong>
 

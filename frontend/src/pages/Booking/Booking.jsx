@@ -1,6 +1,7 @@
 // src/pages/Booking/Booking.jsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./Booking.scss";
 
 const Booking = () => {
@@ -69,6 +70,29 @@ const Booking = () => {
 
   return (
     <div className="booking">
+      <Helmet>
+        <title>Prendre Rendez-vous | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Réservez votre consultation gratuite de 20 minutes ou prenez rendez-vous pour une session d'hypnothérapie ou d'accompagnement TDAH en ligne."
+        />
+        <meta
+          name="keywords"
+          content="rendez-vous, consultation gratuite, réservation, hypnothérapie, TDAH, en ligne"
+        />
+        <meta
+          property="og:title"
+          content="Prendre Rendez-vous | Coco Belle Therapies"
+        />
+        <meta
+          property="og:description"
+          content="Réservez votre consultation gratuite de 20 minutes ou prenez rendez-vous en ligne."
+        />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/rendez-vous"
+        />
+      </Helmet>
       {/* Hero Section */}
       <section className="booking-hero">
         <div className="booking-hero__overlay"></div>

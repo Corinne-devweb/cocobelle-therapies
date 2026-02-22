@@ -1,5 +1,6 @@
 // src/pages/Hypnotherapy/Hypnotherapy.jsx
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./Hypnotherapy.scss";
 
 const Hypnotherapy = () => {
@@ -73,6 +74,30 @@ const Hypnotherapy = () => {
 
   return (
     <div className="hypnotherapy">
+      <Helmet>
+        <title>Hypnothérapie Clinique | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Hypnose thérapeutique pour gestion du stress, anxiété, phobies et développement personnel. Approche bienveillante et personnalisée. £60/session."
+        />
+        <meta
+          name="keywords"
+          content="hypnose clinique, hypnothérapie, stress, anxiété, phobies, développement personnel, thérapie hypnotique"
+        />
+        <meta
+          property="og:title"
+          content="Hypnothérapie Clinique | Coco Belle Therapies"
+        />
+        <meta
+          property="og:description"
+          content="Hypnose thérapeutique pour gestion du stress, anxiété, phobies et développement personnel."
+        />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/hypnose"
+        />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="hypnotherapy-hero">
         <div className="hypnotherapy-hero__overlay"></div>

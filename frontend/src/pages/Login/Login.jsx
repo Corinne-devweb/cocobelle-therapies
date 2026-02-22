@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authAPI } from "../../services/api";
+import { Helmet } from "react-helmet-async";
 import "./Login.scss";
 
 const Login = () => {
@@ -96,6 +97,18 @@ const Login = () => {
 
   return (
     <div className="login">
+      <Helmet>
+        <title>Connexion | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Connectez-vous à votre compte Coco Belle Therapies pour gérer vos rendez-vous et accéder à votre espace personnel."
+        />
+        <meta name="robots" content="noindex, nofollow" />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/connexion"
+        />
+      </Helmet>
       <section className="login-hero">
         <div className="login-hero__overlay"></div>
         <div className="container">

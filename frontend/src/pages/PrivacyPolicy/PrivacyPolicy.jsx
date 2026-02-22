@@ -1,9 +1,22 @@
 // src/pages/PrivacyPolicy/PrivacyPolicy.jsx
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const PrivacyPolicy = () => {
   return (
     <div className="legal-page">
+      <Helmet>
+        <title>Politique de Confidentialité | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Politique de confidentialité et protection des données personnelles RGPD. Découvrez comment vos données sont collectées et utilisées."
+        />
+        <meta name="robots" content="noindex, follow" />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/politique-confidentialite"
+        />
+      </Helmet>
       <header className="legal-page__header">
         <h1 className="legal-page__title">Politique de Confidentialité</h1>
         <p className="legal-page__subtitle">

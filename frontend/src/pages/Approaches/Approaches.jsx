@@ -1,5 +1,6 @@
 // src/pages/Approaches/Approaches.jsx
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./Approaches.scss";
 
 const Approaches = () => {
@@ -45,6 +46,29 @@ const Approaches = () => {
 
   return (
     <div className="approaches">
+      <Helmet>
+        <title>Mes Approches | Coco Belle Therapies</title>
+        <meta
+          name="description"
+          content="Découvrez mon approche thérapeutique basée sur l'ACT, la pleine conscience et l'accompagnement personnalisé. Sessions en ligne 1:1 à £50/session."
+        />
+        <meta
+          name="keywords"
+          content="approches thérapeutiques, ACT, pleine conscience, sessions en ligne, accompagnement personnalisé, tarifs"
+        />
+        <meta
+          property="og:title"
+          content="Mes Approches | Coco Belle Therapies"
+        />
+        <meta
+          property="og:description"
+          content="Approche thérapeutique basée sur l'ACT, la pleine conscience et l'accompagnement personnalisé."
+        />
+        <link
+          rel="canonical"
+          href="https://cocobelle-therapies.vercel.app/mes-approches"
+        />
+      </Helmet>
       {/* Hero Section */}
       <section className="approaches-hero">
         <div className="approaches-hero__overlay"></div>
