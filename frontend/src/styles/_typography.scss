@@ -15,7 +15,7 @@ html {
 
 body {
   font-family: $font-primary, $font-fallback;
-  font-weight: $font-weight-light; // 300
+  font-weight: $font-weight-light;
   font-size: $font-size-body-mobile;
   line-height: $line-height-normal;
   color: $text-primary;
@@ -30,7 +30,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-primary, $font-fallback;
-  font-weight: $font-weight-regular; // 400
+  font-weight: $font-weight-regular; 
   line-height: $line-height-tight;
   margin-bottom: 1rem;
   color: $text-primary;

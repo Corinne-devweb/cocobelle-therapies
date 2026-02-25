@@ -2,13 +2,14 @@
 const express = require("express");
 const router = express.Router();
 const { Appointment } = require("../models");
+const { Op } = require("sequelize");
 const authMiddleware = require("../middleware/auth");
 const { validateAppointment } = require("../middleware/validation");
 
 // Toutes les routes nécessitent une authentification
 router.use(authMiddleware);
 
-// ===== CRÉER UN RENDEZ-VOUS =====
+// Créer un rendez-vous
 router.post("/", validateAppointment, async (req, res) => {
   try {
     const { serviceType, appointmentDate, appointmentTime, duration, notes } =
@@ -38,11 +39,14 @@ router.post("/", validateAppointment, async (req, res) => {
   }
 });
 
-// ===== RÉCUPÉRER TOUS LES RDV DE L'UTILISATEUR =====
+// Récupérer tous les RDV de l'utilisateur
 router.get("/user", async (req, res) => {
   try {
     const appointments = await Appointment.findAll({
-      where: { userId: req.userId },
+      where: {
+        userId: req.userId,
+        status: { [Op.ne]: "cancelled" },
+      },
       order: [
         ["appointmentDate", "DESC"],
         ["appointmentTime", "DESC"],
@@ -69,7 +73,7 @@ router.get("/user", async (req, res) => {
   }
 });
 
-// ===== RÉCUPÉRER UN RDV SPÉCIFIQUE =====
+// Récupérer un RDV spécifique
 router.get("/:id", async (req, res) => {
   try {
     const appointment = await Appointment.findOne({
@@ -99,7 +103,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// ===== MODIFIER UN RDV =====
+// Modifier un RDV
 router.put("/:id", validateAppointment, async (req, res) => {
   try {
     const appointment = await Appointment.findOne({
@@ -132,7 +136,7 @@ router.put("/:id", validateAppointment, async (req, res) => {
   }
 });
 
-// ===== ANNULER UN RDV =====
+// Annuler un RDV
 router.delete("/:id", async (req, res) => {
   try {
     const appointment = await Appointment.findOne({

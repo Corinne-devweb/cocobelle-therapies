@@ -27,7 +27,7 @@ const validateContact = (req, res, next) => {
     errors.push("Le message doit contenir au moins 10 caractères");
   }
 
-  // S'il y a des erreurs, on renvoie une réponse d'erreur
+  // S'il y a des erreurs, renvoyer une réponse d'erreur
   if (errors.length > 0) {
     return res.status(400).json({
       success: false,
@@ -36,7 +36,7 @@ const validateContact = (req, res, next) => {
     });
   }
 
-  // Sinon on passe à la suite
+  // Sinon next
   next();
 };
 
@@ -67,7 +67,7 @@ const validateRegister = (req, res, next) => {
     errors.push("Le mot de passe doit contenir au moins 6 caractères");
   }
 
-  // S'il y a des erreurs, on renvoie une réponse d'erreur
+  // S'il y a des erreurs, renvoyer une réponse d'erreur
   if (errors.length > 0) {
     return res.status(400).json({
       success: false,
@@ -76,7 +76,7 @@ const validateRegister = (req, res, next) => {
     });
   }
 
-  // Sinon on passe à la suite
+  // Sinon next
   next();
 };
 
@@ -95,7 +95,7 @@ const validateLogin = (req, res, next) => {
     errors.push("Le mot de passe est obligatoire");
   }
 
-  // S'il y a des erreurs, on renvoie une réponse d'erreur
+  // S'il y a des erreurs, renvoyer réponse d'erreur
   if (errors.length > 0) {
     return res.status(400).json({
       success: false,
@@ -104,7 +104,7 @@ const validateLogin = (req, res, next) => {
     });
   }
 
-  // Sinon on passe à la suite
+  // Sinon next
   next();
 };
 
@@ -134,7 +134,7 @@ const validateAppointment = (req, res, next) => {
     errors.push("L'heure du rendez-vous est obligatoire");
   }
 
-  // S'il y a des erreurs, on renvoie une réponse d'erreur
+  // S'il y a des erreurs, renvoyer une réponse d'erreur
   if (errors.length > 0) {
     return res.status(400).json({
       success: false,
@@ -143,7 +143,7 @@ const validateAppointment = (req, res, next) => {
     });
   }
 
-  // Sinon on passe à la suite
+  // Sinon next
   next();
 };
 

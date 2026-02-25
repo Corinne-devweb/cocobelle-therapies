@@ -34,9 +34,9 @@ const User = sequelize.define(
   },
   {
     tableName: "users",
-    timestamps: true, // Ajoute automatiquement createdAt et updatedAt
+    timestamps: true,
     hooks: {
-      // Hasher le mot de passe avant de sauvegarder
+      // Hashage du mot de passe avant sauvegarde
       beforeCreate: async (user) => {
         if (user.password) {
           const salt = await bcrypt.genSalt(10);
@@ -53,7 +53,7 @@ const User = sequelize.define(
   },
 );
 
-// Méthode pour comparer les mots de passe
+// Comparaison des mots de passe
 User.prototype.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };

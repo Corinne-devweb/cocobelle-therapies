@@ -14,18 +14,15 @@ const webhookRoutes = require("./routes/webhook");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ===== CONFIGURATION PROXY =====
-// Nécessaire pour Render et autres proxys inverses
+// Configuration proxy
 app.set("trust proxy", 1);
 
-// ===== SÉCURITÉ : HELMET =====
-// Protège les headers HTTP
+// Sécurité : Helmet
 app.use(helmet());
 
-// ===== SÉCURITÉ : RATE LIMITING GÉNÉRAL =====
-// Max 100 requêtes par IP toutes les 15 minutes
+// Rate limiting général (100 requêtes par 15 minutes)
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 100,
   message: {
     success: false,
@@ -35,10 +32,9 @@ const generalLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// ===== SÉCURITÉ : RATE LIMITING CONNEXION =====
-// Max 5 tentatives de connexion par IP toutes les 15 minutes
+// Rate limiting connexion (5 tentatives par 15 minutes)
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 5,
   message: {
     success: false,
@@ -49,10 +45,9 @@ const loginLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// ===== SÉCURITÉ : RATE LIMITING CONTACT =====
-// Max 10 messages de contact par IP toutes les heures
+// Rate limiting contact (10 messages par heure)
 const contactLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 heure
+  windowMs: 60 * 60 * 1000,
   max: 10,
   message: {
     success: false,
@@ -62,27 +57,27 @@ const contactLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// ===== MIDDLEWARES =====
+// Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Appliquer le rate limiting général sur toutes les routes API
+// Appliquer le rate limiting général
 app.use("/api/", generalLimiter);
 
-// ===== ROUTES =====
-app.use("/api/auth/login", loginLimiter); // Rate limit strict sur la connexion
+// Routes
+app.use("/api/auth/login", loginLimiter);
 app.use("/api/auth", authRoutes);
 app.use("/api/appointments", appointmentsRoutes);
-app.use("/api/contact", contactLimiter, contactRoutes); // Rate limit sur le contact
-app.use("/api/webhook", webhookRoutes); // Webhook Cal.com
+app.use("/api/contact", contactLimiter, contactRoutes);
+app.use("/api/webhook", webhookRoutes);
 
 // Route de test
 app.get("/", (req, res) => {
-  res.json({ message: "✅ API Coco Belle Therapies fonctionne !" });
+  res.json({ message: "API Coco Belle Therapies fonctionne" });
 });
 
-// ===== DÉMARRAGE DU SERVEUR =====
+// Démarrage du serveur
 const startServer = async () => {
   try {
     // Synchroniser la base de données
@@ -91,14 +86,14 @@ const startServer = async () => {
     // Démarrer le serveur
     app.listen(PORT, () => {
       console.log("=========================================");
-      console.log(`🚀 Serveur démarré sur le port ${PORT}`);
-      console.log(`📍 URL: http://localhost:${PORT}`);
-      console.log(`🛡️  Helmet activé`);
-      console.log(`🔒 Rate Limiting activé`);
+      console.log(`Serveur démarré sur le port ${PORT}`);
+      console.log(`URL: http://localhost:${PORT}`);
+      console.log(`Helmet activé`);
+      console.log(`Rate Limiting activé`);
       console.log("=========================================");
     });
   } catch (error) {
-    console.error("❌ Erreur au démarrage:", error);
+    console.error("Erreur au démarrage:", error);
     process.exit(1);
   }
 };

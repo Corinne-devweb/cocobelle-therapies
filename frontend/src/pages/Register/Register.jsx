@@ -94,11 +94,11 @@ const Register = () => {
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("isLoggedIn", "true");
 
-      console.log("✅ Inscription réussie:", user);
+      console.log("Inscription réussie:", user);
 
       navigate("/mon-compte");
     } catch (error) {
-      console.error("❌ Erreur d'inscription:", error);
+      console.error("Erreur d'inscription:", error);
 
       if (error.response) {
         setRegisterError(
@@ -154,7 +154,7 @@ const Register = () => {
 
               {registerError && (
                 <div className="alert alert--error">
-                  <span className="alert__icon">⚠️</span>
+                  <span className="alert__icon">!</span>
                   <span>{registerError}</span>
                 </div>
               )}

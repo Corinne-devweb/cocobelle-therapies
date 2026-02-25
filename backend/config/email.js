@@ -1,30 +1,21 @@
- // backend/config/email.js
+// backend/config/email.js
 const { Resend } = require("resend");
 require("dotenv").config();
 
-// Initialiser Resend avec la clé API
-const resend = new Resend(process.env.RESEND_API_KEY); - Version Resend (rapide et fiable)
-const { Resend } = require('resend');
-
-// Initialiser Resend avec la clé API
+// Initialiser Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-/**
- * Envoyer un email via Resend
- * @param {Object} options - Options de l'email
- * @param {string} options.to - Destinataire
- * @param {string} options.subject - Sujet
- * @param {string} options.html - Contenu HTML
- * @param {string} options.from - Expéditeur (optionnel)
- */
+// Envoyer un email via Resend
 const sendEmail = async ({ to, subject, html, from }) => {
   try {
-    // Email expéditeur par défaut (utilisez votre domaine vérifié ou onboarding@resend.dev)
-    const fromEmail = from || process.env.EMAIL_FROM || 'onboarding@resend.dev';
+    const fromEmail =
+      from ||
+      process.env.EMAIL_FROM ||
+      "Coco Belle Therapies <onboarding@resend.dev>";
 
-    console.log('📧 Envoi email via Resend...');
-    console.log('Destinataire:', to);
-    console.log('Sujet:', subject);
+    console.log("Envoi email via Resend...");
+    console.log("Destinataire:", to);
+    console.log("Sujet:", subject);
 
     const { data, error } = await resend.emails.send({
       from: fromEmail,
@@ -34,25 +25,24 @@ const sendEmail = async ({ to, subject, html, from }) => {
     });
 
     if (error) {
-      console.error('❌ Erreur Resend:', error);
-      throw new Error(error.message || 'Erreur lors de l\'envoi de l\'email');
+      console.error("Erreur Resend:", error);
+      throw new Error(error.message || "Erreur lors de l'envoi de l'email");
     }
 
-    console.log('✅ Email envoyé avec succès via Resend!');
-    console.log('ID:', data.id);
-    
+    console.log("Email envoyé avec succès via Resend");
+    console.log("ID:", data.id);
+
     return { success: true, messageId: data.id };
   } catch (error) {
-    console.error('❌ Erreur sendEmail:', error);
+    console.error("Erreur sendEmail:", error);
     throw error;
   }
 };
 
-/**
- * Envoyer un email de confirmation de rendez-vous
- */
+// Envoyer un email de confirmation de rendez-vous
 const sendAppointmentConfirmation = async (userEmail, appointmentDetails) => {
-  const { serviceType, appointmentDate, appointmentTime, duration } = appointmentDetails;
+  const { serviceType, appointmentDate, appointmentTime, duration } =
+    appointmentDetails;
 
   const html = `
     <!DOCTYPE html>
@@ -72,32 +62,34 @@ const sendAppointmentConfirmation = async (userEmail, appointmentDetails) => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>✅ Rendez-vous confirmé</h1>
+          <h1>Rendez-vous confirmé</h1>
         </div>
         <div class="content">
           <p>Bonjour,</p>
           <p>Votre rendez-vous a été confirmé avec succès !</p>
           
           <div class="details">
-            <h3>📋 Détails du rendez-vous</h3>
+            <h3>Détails du rendez-vous</h3>
             <p><strong>Service :</strong> ${serviceType}</p>
-            <p><strong>Date :</strong> ${new Date(appointmentDate).toLocaleDateString('fr-FR', { 
-              day: 'numeric', 
-              month: 'long', 
-              year: 'numeric' 
+            <p><strong>Date :</strong> ${new Date(
+              appointmentDate,
+            ).toLocaleDateString("fr-FR", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
             })}</p>
             <p><strong>Heure :</strong> ${appointmentTime}</p>
             <p><strong>Durée :</strong> ${duration} minutes</p>
           </div>
 
-          <p><strong>💳 Paiement :</strong> Le paiement doit être effectué par virement bancaire au plus tard 24h avant la session.</p>
+          <p><strong>Paiement :</strong> Le paiement doit être effectué par virement bancaire au plus tard 24h avant la session.</p>
           
-          <p><strong>📧 Un lien Google Meet vous sera envoyé 24h avant le rendez-vous.</strong></p>
+          <p><strong>Un lien Google Meet vous sera envoyé 24h avant le rendez-vous.</strong></p>
 
           <p>Si vous avez des questions, n'hésitez pas à me contacter :</p>
           <ul>
-            <li>📧 Email : info@cocobelletherapies.com</li>
-            <li>📱 WhatsApp : +44 7801 766737</li>
+            <li>Email : info@cocobelletherapies.com</li>
+            <li>WhatsApp : +44 7801 766737</li>
           </ul>
 
           <p>À bientôt,<br>Belle - Coco Belle Therapies</p>
@@ -114,14 +106,12 @@ const sendAppointmentConfirmation = async (userEmail, appointmentDetails) => {
 
   return sendEmail({
     to: userEmail,
-    subject: '✅ Confirmation de rendez-vous - Coco Belle Therapies',
+    subject: "Confirmation de rendez-vous - Coco Belle Therapies",
     html,
   });
 };
 
-/**
- * Envoyer un email de contact
- */
+// Envoyer un email de contact
 const sendContactEmail = async (contactData) => {
   const { name, email, phone, subject, message } = contactData;
 
@@ -142,13 +132,13 @@ const sendContactEmail = async (contactData) => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>📧 Nouveau message de contact</h1>
+          <h1>Nouveau message de contact</h1>
         </div>
         <div class="content">
           <div class="details">
             <p><strong>Nom :</strong> ${name}</p>
             <p><strong>Email :</strong> ${email}</p>
-            <p><strong>Téléphone :</strong> ${phone || 'Non renseigné'}</p>
+            <p><strong>Téléphone :</strong> ${phone || "Non renseigné"}</p>
             <p><strong>Sujet :</strong> ${subject}</p>
             <p><strong>Message :</strong></p>
             <p style="white-space: pre-wrap;">${message}</p>
@@ -175,7 +165,7 @@ const sendContactEmail = async (contactData) => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>✅ Message reçu</h1>
+          <h1>Message reçu</h1>
         </div>
         <div class="content">
           <p>Bonjour ${name},</p>
@@ -189,23 +179,21 @@ const sendContactEmail = async (contactData) => {
 
   // Envoyer les deux emails
   await sendEmail({
-    to: process.env.ADMIN_EMAIL || 'info@cocobelletherapies.com',
-    subject: `📧 Nouveau message : ${subject}`,
+    to: process.env.EMAIL_TO || "info@cocobelletherapies.com",
+    subject: `Nouveau message : ${subject}`,
     html: adminHtml,
   });
 
   await sendEmail({
     to: email,
-    subject: '✅ Message reçu - Coco Belle Therapies',
+    subject: "Message reçu - Coco Belle Therapies",
     html: userHtml,
   });
 
   return { success: true };
 };
 
-/**
- * Envoyer un email de bienvenue
- */
+// Envoyer un email de bienvenue
 const sendWelcomeEmail = async (userEmail, userName) => {
   const html = `
     <!DOCTYPE html>
@@ -223,7 +211,7 @@ const sendWelcomeEmail = async (userEmail, userName) => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>🌟 Bienvenue !</h1>
+          <h1>Bienvenue !</h1>
         </div>
         <div class="content">
           <p>Bonjour ${userName},</p>
@@ -231,16 +219,16 @@ const sendWelcomeEmail = async (userEmail, userName) => {
           
           <p>Vous pouvez maintenant :</p>
           <ul>
-            <li>📅 Réserver vos rendez-vous</li>
-            <li>👤 Gérer votre compte</li>
-            <li>📧 Me contacter facilement</li>
+            <li>Réserver vos rendez-vous</li>
+            <li>Gérer votre compte</li>
+            <li>Me contacter facilement</li>
           </ul>
 
           <p style="text-align: center;">
             <a href="https://cocobelle-therapies.vercel.app/rendez-vous" class="button">Prendre rendez-vous</a>
           </p>
 
-          <p>🎁 <strong>Consultation gratuite de 20 minutes disponible !</strong></p>
+          <p><strong>Consultation gratuite de 20 minutes disponible !</strong></p>
 
           <p>À bientôt,<br>Belle - Coco Belle Therapies</p>
         </div>
@@ -251,7 +239,7 @@ const sendWelcomeEmail = async (userEmail, userName) => {
 
   return sendEmail({
     to: userEmail,
-    subject: '🌟 Bienvenue sur Coco Belle Therapies !',
+    subject: "Bienvenue sur Coco Belle Therapies !",
     html,
   });
 };
