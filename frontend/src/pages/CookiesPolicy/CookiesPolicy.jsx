@@ -8,7 +8,6 @@ const CookiesPolicy = () => {
   const [preferencesEnabled, setPreferencesEnabled] = useState(true);
 
   const handleSavePreferences = () => {
-    // Ici vous pourrez plus tard implémenter la logique de sauvegarde
     alert("Vos préférences ont été enregistrées !");
   };
 

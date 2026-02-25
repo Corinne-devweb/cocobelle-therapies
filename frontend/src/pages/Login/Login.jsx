@@ -67,17 +67,15 @@ const Login = () => {
 
       const { token, user } = response.data;
 
-      // Sauvegarder dans localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("isLoggedIn", "true");
 
-      console.log("✅ Connexion réussie:", user);
+      console.log("Connexion réussie:", user);
 
-      // Redirection vers Mon Compte
       navigate("/mon-compte");
     } catch (error) {
-      console.error("❌ Erreur de connexion:", error);
+      console.error("Erreur de connexion:", error);
 
       if (error.response) {
         setLoginError(
@@ -132,7 +130,7 @@ const Login = () => {
 
               {loginError && (
                 <div className="alert alert--error">
-                  <span className="alert__icon">⚠️</span>
+                  <span className="alert__icon">!</span>
                   <span>{loginError}</span>
                 </div>
               )}

@@ -6,7 +6,7 @@ const { User } = require("../models");
 const authMiddleware = require("../middleware/auth");
 const { validateRegister, validateLogin } = require("../middleware/validation");
 
-// ===== INSCRIPTION =====
+// Inscription
 router.post("/register", validateRegister, async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
@@ -17,7 +17,7 @@ router.post("/register", validateRegister, async (req, res) => {
       return res.status(400).json({ message: "Cet email est déjà utilisé" });
     }
 
-    // Créer l'utilisateur (le mot de passe sera hashé automatiquement)
+    // Créer l'utilisateur
     const user = await User.create({
       name,
       email,
@@ -46,7 +46,7 @@ router.post("/register", validateRegister, async (req, res) => {
   }
 });
 
-// ===== CONNEXION =====
+// Connexion
 router.post("/login", validateLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -88,7 +88,7 @@ router.post("/login", validateLogin, async (req, res) => {
   }
 });
 
-// ===== RÉCUPÉRER L'UTILISATEUR CONNECTÉ =====
+// Récupérer l'utilisateur connecté
 router.get("/me", authMiddleware, async (req, res) => {
   try {
     const user = await User.findByPk(req.userId, {

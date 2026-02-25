@@ -41,7 +41,7 @@ const Contact = () => {
       newErrors.email = "Email invalide";
     }
 
-    // Téléphone (optionnel mais validé si rempli)
+    // Téléphone (optionnel)
     if (formData.phone.trim()) {
       const phoneRegex = /^[\d\s\+\-\(\)]+$/;
       if (!phoneRegex.test(formData.phone)) {
