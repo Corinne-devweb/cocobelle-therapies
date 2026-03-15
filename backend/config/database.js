@@ -4,7 +4,7 @@ const { Sequelize } = require("sequelize");
 let sequelize;
 
 if (process.env.DATABASE_URL) {
-  // ✅ Production / Render
+  //  Production / Render
   const dbUrl = process.env.DATABASE_URL.replace(
     /^postgresql:\/\//,
     "postgres://",
@@ -22,7 +22,7 @@ if (process.env.DATABASE_URL) {
     },
   });
 } else {
-  // ✅ Cas local
+  //  Cas local
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
@@ -46,9 +46,9 @@ if (process.env.DATABASE_URL) {
 const testConnection = async () => {
   try {
     await sequelize.authenticate();
-    console.log("✅ Connexion à la base de données réussie !");
+    console.log(" Connexion à la base de données réussie !");
   } catch (error) {
-    console.error("❌ Erreur de connexion à la base de données :", error);
+    console.error(" Erreur de connexion à la base de données :", error);
   }
 };
 
