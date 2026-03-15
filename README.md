@@ -1,4 +1,4 @@
-# 🌿 Coco Belle Therapies
+# Coco Belle Therapies
 
 Site web professionnel pour l'accompagnement thérapeutique du TDAH et l'hypnothérapie clinique.
 
@@ -6,7 +6,7 @@ Site web professionnel pour l'accompagnement thérapeutique du TDAH et l'hypnoth
 
 ---
 
-## 📋 Table des matières
+## Table des matières
 
 - [À propos](#à-propos)
 - [Technologies utilisées](#technologies-utilisées)
@@ -19,7 +19,7 @@ Site web professionnel pour l'accompagnement thérapeutique du TDAH et l'hypnoth
 
 ---
 
-## 🎯 À propos
+## À propos
 
 **Coco Belle Therapies** est une plateforme web complète offrant :
 
@@ -29,7 +29,7 @@ Site web professionnel pour l'accompagnement thérapeutique du TDAH et l'hypnoth
 
 ---
 
-## 🛠️ Technologies utilisées
+## Technologies utilisées
 
 ### **Frontend**
 
@@ -58,7 +58,7 @@ Site web professionnel pour l'accompagnement thérapeutique du TDAH et l'hypnoth
 
 ---
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
 ### **Pour les visiteurs**
 
@@ -82,7 +82,7 @@ Site web professionnel pour l'accompagnement thérapeutique du TDAH et l'hypnoth
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### **Prérequis**
 
@@ -116,7 +116,7 @@ npm install
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### **Frontend - Variables d'environnement**
 
@@ -131,15 +131,19 @@ VITE_API_URL=http://localhost:5000/api
 Créez un fichier `.env` dans `backend/` :
 
 ```env
-# Base de données
-DATABASE_URL=postgresql://user:password@localhost:5432/cocobelle
+# Base de données PostgreSQL (Local)
+DB_HOST=localhost
+DB_USER=postgres
+DB_PASSWORD=votre_mot_de_passe
+DB_NAME=cocobelle_therapies
+DB_PORT=5432
 
 # JWT
 JWT_SECRET=votre_secret_jwt_tres_long_et_securise
 
 # Emails (Resend)
 RESEND_API_KEY=re_votre_cle_api_resend
-EMAIL_FROM=Coco Belle Therapies <onboarding@resend.dev>
+EMAIL_FROM=onboarding@resend.dev
 EMAIL_TO=info@cocobelletherapies.com
 
 # Serveur
@@ -147,9 +151,11 @@ PORT=5000
 NODE_ENV=development
 ```
 
+**Note :** En production (Render), la variable `DATABASE_URL` est fournie automatiquement par le service PostgreSQL de Render.
+
 ---
 
-## 🚀 Déploiement
+## Déploiement
 
 ### **Frontend (Vercel)**
 
@@ -176,6 +182,7 @@ Le backend est déployé sur Render avec auto-déploiement depuis GitHub.
 - `RESEND_API_KEY` - Clé API Resend
 - `EMAIL_FROM` - Email d'envoi
 - `EMAIL_TO` - Email de réception
+- `NODE_ENV` - production
 
 ### **Base de données (Render PostgreSQL)**
 
@@ -183,7 +190,7 @@ Base de données PostgreSQL hébergée sur Render avec connexion automatique.
 
 ---
 
-## 📁 Structure du projet
+## Structure du projet
 
 ```
 cocobelle-therapies/
@@ -234,7 +241,7 @@ cocobelle-therapies/
 
 ---
 
-## 📡 API Documentation
+## API Documentation
 
 ### **Base URL**
 
@@ -275,7 +282,7 @@ POST /webhook/cal     - Webhook Cal.com (automatique)
 
 ---
 
-## 🔐 Sécurité
+## Sécurité
 
 - ✅ Authentification JWT
 - ✅ Mots de passe hashés avec Bcrypt
@@ -287,7 +294,7 @@ POST /webhook/cal     - Webhook Cal.com (automatique)
 
 ---
 
-## 📧 Configuration des emails
+## Configuration des emails
 
 Le projet utilise **Resend** pour l'envoi d'emails rapides et fiables.
 
@@ -299,7 +306,7 @@ Le projet utilise **Resend** pour l'envoi d'emails rapides et fiables.
 
 ---
 
-## 🔗 Intégration Cal.com
+## Intégration Cal.com
 
 Le système de réservation utilise **Cal.com** avec webhook pour synchronisation automatique.
 
@@ -318,7 +325,7 @@ Le système de réservation utilise **Cal.com** avec webhook pour synchronisatio
 
 ---
 
-## 🎨 SEO et Meta Tags
+## SEO et Meta Tags
 
 Le site est optimisé pour le référencement avec :
 
@@ -330,20 +337,20 @@ Le site est optimisé pour le référencement avec :
 
 ---
 
-## 👥 Auteurs
+## Auteurs
 
 **Développement :** Corinne
 **Client :** Annabel Coulthard - Coco Belle Therapies
 
 ---
 
-## 📄 Licence
+## Licence
 
 Ce projet est propriétaire et appartient à Coco Belle Therapies.
 
 ---
 
-## 🚀 Commandes utiles
+## Commandes utiles
 
 ### **Développement**
 
@@ -379,7 +386,7 @@ node -e "require('./models').sequelize.sync({ force: true })"
 
 ---
 
-## 📞 Support
+## Support
 
 Pour toute question ou support :
 

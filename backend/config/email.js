@@ -177,18 +177,33 @@ const sendContactEmail = async (contactData) => {
     </html>
   `;
 
-  // Envoyer les deux emails
+  // Envoyer l'email à l'administrateur
   await sendEmail({
     to: process.env.EMAIL_TO || "info@cocobelletherapies.com",
     subject: `Nouveau message : ${subject}`,
     html: adminHtml,
   });
 
-  await sendEmail({
-    to: email,
-    subject: "Message reçu - Coco Belle Therapies",
-    html: userHtml,
-  });
+  // Envoyer l'email de confirmation à l'utilisateur SEULEMENT si autorisé
+  // En local (development), Resend ne permet d'envoyer qu'à corinne.devweb1@gmail.com
+  // En production, on peut envoyer à n'importe qui
+  if (
+    process.env.NODE_ENV === "production" ||
+    email === "corinne.devweb1@gmail.com"
+  ) {
+    await sendEmail({
+      to: email,
+      subject: "Message reçu - Coco Belle Therapies",
+      html: userHtml,
+    });
+  } else {
+    console.log(
+      `⚠️  Email de confirmation non envoyé à ${email} (limitation Resend en local)`,
+    );
+    console.log(
+      `ℹ️  En production, l'utilisateur recevra bien un email de confirmation.`,
+    );
+  }
 
   return { success: true };
 };
